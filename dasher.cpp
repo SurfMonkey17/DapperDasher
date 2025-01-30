@@ -13,6 +13,10 @@ int main()
     int posY{windowHeight - height}; // set on ground
     int velocity{0};
 
+    // acceleration due to gravity (pixels/frame)/frame
+
+    const int gravity{1};
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
@@ -21,11 +25,24 @@ int main()
         ClearBackground(WHITE);
 
         // game logic here
+        // perform ground check
+        if (posY >= (windowHeight - height))
+        {
+            // rectangle is on the ground
+            velocity = 0;
+        }
+        else
+        {
+            // rectangle is in the air
+            velocity += gravity;
+        }
+
         if (IsKeyPressed(KEY_SPACE))
         {
             velocity -= 10;
         }
 
+        // update position
         posY += velocity;
 
         DrawRectangle(windowWidth / 2, posY, width, height, BLUE);
