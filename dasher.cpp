@@ -64,5 +64,6 @@ int main()
         EndDrawing();
     }
 
+    UnloadTexture(scarfy);
     CloseWindow();
 }
