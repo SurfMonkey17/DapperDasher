@@ -6,26 +6,27 @@ int main()
     const int windowHeight{600};
     InitWindow(windowWidth, windowHeight, "Dapper Dasher!");
 
-    // rectangle dimensions
-    const int width{50};
-    const int height{80};
-
     // is player in air?
     bool isInAir{};
 
     // jump velocity
     const int jumpVal{-22};
 
-    int posY{windowHeight - height}; // set on ground
     int velocity{0};
 
     // acceleration due to gravity (pixels/frame)/frame
 
     const int gravity{1};
 
-    Texture2D scarfy = LoadTexture("textures/scarfy.png");
+    Texture2D scarfy = LoadTexture("dapper-dasher-master-textures/textures/scarfy.png");
     Rectangle scarfyRec;
+    scarfyRec.width = scarfy.width / 6;
+    scarfyRec.height = scarfy.height;
+    scarfyRec.x = 0;
+    scarfyRec.y = 0;
     Vector2 scarfyPos;
+    scarfyPos.x = windowWidth / 2 - scarfyRec.width / 2;
+    scarfyPos.y = windowHeight - scarfyRec.height;
 
     SetTargetFPS(60);
 
@@ -36,7 +37,7 @@ int main()
 
         // game logic here
         // perform ground check
-        if (posY >= (windowHeight - height))
+        if (scarfyPos.y >= (windowHeight - scarfyRec.height))
         {
             // rectangle is on the ground
             velocity = 0;
@@ -56,9 +57,9 @@ int main()
         }
 
         // update position
-        posY += velocity;
+        scarfyPos.y += velocity;
 
-        DrawRectangle(windowWidth / 2, posY, width, height, BLUE);
+        DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
 
         EndDrawing();
     }
