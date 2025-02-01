@@ -23,6 +23,10 @@ int main()
 
     const int gravity{1};
 
+    Texture2D scarfy = LoadTexture("textures/scarfy.png");
+    Rectangle scarfyRec;
+    Vector2 scarfyPos;
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
