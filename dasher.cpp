@@ -9,14 +9,13 @@ int main()
     // is player in air?
     bool isInAir{};
 
-    // jump velocity
-    const int jumpVal{-22};
+    // jump velocity pixels/second
+    const int jumpVal{-600};
 
     int velocity{0};
 
-    // acceleration due to gravity (pixels/frame)/frame
-
-    const int gravity{1};
+    // acceleration due to gravity (pixels/second)/second
+    const int gravity{1'000}; // ' ignored by compiler, used for readability
 
     Texture2D scarfy = LoadTexture("dapper-dasher-master-textures/textures/scarfy.png");
     Rectangle scarfyRec;
@@ -34,6 +33,7 @@ int main()
     {
         BeginDrawing();
         ClearBackground(WHITE);
+        float dT{GetFrameTime()};
 
         // game logic here
         // perform ground check
@@ -46,7 +46,7 @@ int main()
         else
         {
             // rectangle is in the air
-            velocity += gravity;
+            velocity += gravity * dT;
             isInAir = true;
         }
 
@@ -57,7 +57,7 @@ int main()
         }
 
         // update position
-        scarfyPos.y += velocity;
+        scarfyPos.y += velocity * dT;
 
         DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
 
